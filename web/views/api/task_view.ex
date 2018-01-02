@@ -9,6 +9,12 @@ defmodule Todo.Api.TaskView do
     }
   end
 
+  def render("tasks.json", %{tasks: tasks}) do
+    %{
+      tasks: Enum.map(tasks, &task_to_json(&1))
+    }
+  end
+
   def task_to_json(task = %Task{}) do
     %{
       id: task.id,
