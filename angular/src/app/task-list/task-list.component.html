@@ -1,0 +1,8 @@
+<ul class="list-group mt-1">
+  <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+      *ngFor="let task of tasks"
+      [routerLink]="[task.id]"
+      routerLinkActive="active">
+    {{ task.name }}
+  </li>
+</ul>

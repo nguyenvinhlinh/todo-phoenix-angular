@@ -1,0 +1,10 @@
+<div class="row mt-2">
+  <div class="col-6">
+    <button class="btn btn-success" (click)="onNewButton()">New</button>
+    <app-task-list [tasks]="tasks"></app-task-list>
+  </div>
+
+  <div class="col-6">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<form ngForm #newForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label>Task name:</label>
+    <input class="form-control" name="name" ngModel required/>
+  </div>
+
+  <div class="form-group">
+    <label for="">Description</label> <br/>
+    <textarea class="form-control" name="description" ngModel></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="">Status</label>
+    <select id="" name="" class="form-control" [ngModel]="defaultTaskStatus" name="status">
+      <option *ngFor="let option of taskStatusOptions" value="{{option}}">{{ option | uppercase }}</option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary" type="submit" [disabled]="newForm.invalid">Save</button>
+</form>

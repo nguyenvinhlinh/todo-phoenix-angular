@@ -1,0 +1,29 @@
+<h2>{{ task?.name }} </h2>
+<blockquote class="blockquote">
+  <p class="mb-0">{{ task?.description }}</p>
+  <footer class="blockquote-footer"> Created at: {{ task?.createdAt | date:'dd/MM/yyyy hh:mm aa'}} </footer>
+  <footer class="blockquote-footer" *ngIf="task?.finishedAt">  Finished at: {{ task?.finishedAt | date:'dd/MM/yyyy hh:mm aa'}} </footer>
+</blockquote>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-info" (click)="onClickEdit()">Edit</button>
+  <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split"
+          data-toggle="dropdown" appDropdown [appDropdownMenu]="dropdownMenu">
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu" #dropdownMenu>
+    <button class="dropdown-item" (click)="onChangeStatusToFuture()"
+            *ngIf="task?.status != 'future'">
+      Change to Future
+    </button>
+    <button class="dropdown-item" (click)="onChangeStatusToDoing()"
+            *ngIf="task?.status != 'doing'">
+      Change to Doing
+    </button>
+    <button class="dropdown-item" (click)="onChangeStatusToFinished()"
+            *ngIf="task?.status != 'finished'">
+      Change to Finished
+    </button>
+  </div>
+</div>
+<button class="btn btn-danger" (click)="onClickDelete()">Delete</button>
