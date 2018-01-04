@@ -5,6 +5,7 @@ defmodule Todo.Task do
     field :name, :string
     field :description, :string
     field :status, :string
+    field :finished_at, :naive_datetime
     timestamps()
   end
 
@@ -13,7 +14,7 @@ defmodule Todo.Task do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :description, :status])
+    |> cast(params, [:name, :description, :status, :finished_at])
     |> validate_required([:name, :description, :status])
   end
   

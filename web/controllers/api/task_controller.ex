@@ -2,13 +2,16 @@ defmodule Todo.Api.TaskController do
   use Todo.Web, :controller
 
   alias Todo.Task
+  alias Plug.Conn
+  plug :plug_cors
 
   def get_tasks(conn, params) do
     tasks = Task.query_all_tasks()
-    |> Task.query_by_status(Map.get(params, :status, nil))
+    |> Task.query_by_status(Map.get(params, "status", nil))
     |> Repo.all()
 
-    render(conn, "tasks.json", tasks: tasks)
+    conn
+    |> render("tasks.json", tasks: tasks)
   end
 
   def get_task(conn, %{"id" => id}) do
@@ -54,7 +57,7 @@ defmodule Todo.Api.TaskController do
     task = Repo.get(Task, id)
     process_update_task(conn, task, params)
   end
-  
+
   defp process_update_task(conn, nil, _) do
     conn
     |> Plug.Conn.put_status(404)
@@ -69,5 +72,16 @@ defmodule Todo.Api.TaskController do
     end
   end
 
-  
+  def options(conn, _) do
+    conn
+    |> Conn.put_resp_header("Access-Control-Allow-Origin", "*")
+    |> Conn.put_resp_header("Access-Control-Allow-Methods", "POST, PATCH, DELETE")
+    |> Conn.put_resp_header("Access-Control-Allow-Headers", "Content-Type")
+    |> Conn.send_resp(204, "")
+  end
+
+  def plug_cors(conn, _) do
+    conn
+    |> Conn.put_resp_header("Access-Control-Allow-Origin", "*")
+  end
 end

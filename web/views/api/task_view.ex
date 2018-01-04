@@ -21,6 +21,7 @@ defmodule Todo.Api.TaskView do
       name: task.name,
       description: task.description,
       status: task.status,
+      finished_at: task.finished_at,
       inserted_at: task.inserted_at,
       updated_at: task.updated_at
     }
