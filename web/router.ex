@@ -13,12 +13,6 @@ defmodule Todo.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Todo do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
-  end
-
   scope "/api", Todo.Api do
     pipe_through :api
     scope "/tasks" do
@@ -31,5 +25,12 @@ defmodule Todo.Router do
       options "/", TaskController, :options
       options "/:id", TaskController, :options
     end
+  end
+
+  scope "/", Todo do
+    pipe_through :browser # Use the default browser stack
+    
+    get "/", PageController, :index
+    get "/*any", PageController, :index
   end
 end
