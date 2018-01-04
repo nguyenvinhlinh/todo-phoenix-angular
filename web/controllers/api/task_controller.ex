@@ -1,6 +1,5 @@
 defmodule Todo.Api.TaskController do
   use Todo.Web, :controller
-
   alias Todo.Task
   alias Plug.Conn
   plug :plug_cors
@@ -25,11 +24,11 @@ defmodule Todo.Api.TaskController do
     end
   end
 
-  def post_task(conn, %{"name" => name, "description" => description, "status" => status} = params) do
+  def post_task(conn, %{"name" => _name, "description" => _description, "status" => _status} = params) do
     changeset = Task.changeset(%Task{}, params)
     case Repo.insert(changeset) do
       {:ok, task} -> render(conn, "task.json", task: task)
-      {:error, changeset} -> json(conn, %{message: "Cannot create new task"})
+      {:error, _changeset} -> json(conn, %{message: "Cannot create new task"})
     end
   end
 
@@ -68,7 +67,7 @@ defmodule Todo.Api.TaskController do
     changeset = Task.changeset(task, params)
     case Repo.update(changeset) do
       {:ok, task} -> render(conn, "task.json", task: task)
-      {:error, changeset} -> json(conn, %{message: "CANNOT UPDATE"})
+      {:error, _changeset} -> json(conn, %{message: "CANNOT UPDATE"})
     end
   end
 
