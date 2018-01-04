@@ -15,7 +15,7 @@ defmodule Todo.Task do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :description, :status, :finished_at])
-    |> validate_required([:name, :description, :status])
+    |> validate_required([:name, :status])
   end
   
   def query_all_tasks(), do: from t in __MODULE__
